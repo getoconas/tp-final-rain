@@ -18,9 +18,9 @@ def get_news_somosjujuy(query, max_news):
   for h2 in h2_tags:
     a_tag = h2.find('a')
     if a_tag and a_tag.get('href'):
-      titulo = a_tag.get_text(strip=True)
-      enlace = a_tag['href']
-      news.append({'titulo': titulo, 'enlace': enlace})
+      title = a_tag.get_text(strip=True)
+      url = a_tag['href']
+      news.append({'titulo': title, 'enlace': url})
       if len(news) >= max_news:
         break
 

@@ -20,11 +20,11 @@ def get_news_pagina12(query, max_news):
     if h4:
       a_tag = h4.find('a')
       if a_tag and a_tag.get('href'):
-        titulo = a_tag.get_text(strip=True)
-        enlace = a_tag['href']
-        if enlace.startswith('/'):
-          enlace = 'https://www.pagina12.com.ar' + enlace
-        news.append({'titulo': titulo, 'enlace': enlace})
+        title = a_tag.get_text(strip=True)
+        url = a_tag['href']
+        if url.startswith('/'):
+          url = 'https://www.pagina12.com.ar' + url
+        news.append({'titulo': title, 'enlace': url})
         if len(news) >= max_news:
           break
 

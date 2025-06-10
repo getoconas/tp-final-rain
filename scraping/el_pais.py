@@ -20,12 +20,12 @@ def get_news_elpais(query, max_news):
     if h2:
       a_tag = h2.find('a')
       if a_tag and a_tag.get('href'):
-        titulo = a_tag.get_text(strip=True)
-        enlace = a_tag['href']
+        title = a_tag.get_text(strip=True)
+        url = a_tag['href']
         # Si el enlace es relativo, agregar el dominio
-        if enlace.startswith('/'):
-          enlace = 'https://elpais.com' + enlace
-        news.append({'titulo': titulo, 'enlace': enlace})
+        if url.startswith('/'):
+          url = 'https://elpais.com' + url
+        news.append({'titulo': title, 'enlace': url})
         if len(news) >= max_news:
           break
 
