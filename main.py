@@ -1,12 +1,13 @@
-from scraping.pages.somos_jujuy import get_news_somosjujuy
-from scraping.pages.pagina_12 import get_news_pagina12
-from scraping.pages.el_pais import get_news_elpais
-from scraping.pages.euronews import get_news_euronews
-from scraping.pages.que_pasa_jujuy import get_news_quepasajujuy
-from scraping.pages.jujuy_dice import get_news_jujuydice
-from scraping.pages.tn import get_news_tn
+from scraping.pages import ALL_NEWS
 
 # Programa principal
 if __name__ == "__main__":
-  print(get_news_elpais("lento", 10))
-  
+
+  all_articles = []
+  for get_news in ALL_NEWS:
+    try:
+      news = get_news("inteligencia artificial", 10) 
+      all_articles.extend(news)
+      print(f"{get_news.__name__} finalizado. Noticias obtenidas: {len(news)}")
+    except Exception as e:
+      print(f"Error al procesar {get_news.__name__}: {e}")
