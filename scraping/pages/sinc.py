@@ -10,11 +10,11 @@ def get_news_sinc(query, max_news):
     return []
 
   soup = BeautifulSoup(response.text, 'html.parser')
-  divs = soup.find_all('div', class_='line_bloquetexto horizontal')
+  articles = soup.find_all('div', class_='line_bloquetexto horizontal')
 
   news = []
-  for div in divs:
-    a_tag = div.find('a')
+  for article in articles:
+    a_tag = article.find('a')
     if a_tag and a_tag.get('href'):
       title = a_tag.get_text(strip=True)
       url = a_tag['href']

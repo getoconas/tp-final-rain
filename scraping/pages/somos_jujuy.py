@@ -10,11 +10,11 @@ def get_news_somosjujuy(query, max_news):
     return []
 
   soup = BeautifulSoup(response.text, 'html.parser')
-  h2_tags = soup.find_all('h2', class_='tit')
+  articles = soup.find_all('h2', class_='tit')
 
   news = []
-  for h2 in h2_tags:
-    a_tag = h2.find('a')
+  for article in articles:
+    a_tag = article.find('a')
     if a_tag and a_tag.get('href'):
       title = a_tag.get_text(strip=True)
       url = a_tag['href']

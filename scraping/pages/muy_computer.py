@@ -6,16 +6,16 @@ def get_news_muycomputer(query, max_news):
 
   response = requests.get(url, headers=headers)
   if response.status_code != 200:
-    print(f"Error al obtener la página 'muycomputer': {response.status_code}")
+    print(f"Error al obtener la página 'muy computer': {response.status_code}")
     return []
 
   soup = BeautifulSoup(response.text, 'html.parser')
-  lis = soup.find_all('li', class_='mvp-blog-story-wrap left relative infinite-post')
+  articles = soup.find_all('li', class_='mvp-blog-story-wrap left relative infinite-post')
 
   news = []
-  for li in lis:
-    a_tag = li.find('a', rel='bookmark')
-    h2_tag = li.find('h2')
+  for article in articles:
+    a_tag = article.find('a', rel='bookmark')
+    h2_tag = article.find('h2')
     if a_tag and h2_tag and a_tag.get('href'):
       title = h2_tag.get_text(strip=True)
       url = a_tag['href']
