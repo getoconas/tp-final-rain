@@ -2,11 +2,11 @@ from scraping.utils.common import requests, BeautifulSoup, quote
 
 def get_news_somosjujuy(query, max_news):
   url = f"https://www.somosjujuy.com.ar/search?q={quote(query)}"
-  headers = {"User-Agent": "Mozilla/5.0"}
+  headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
 
   response = requests.get(url, headers=headers)
   if response.status_code != 200:
-    print(f"Error al obtener la página: {response.status_code}")
+    print(f"Error al obtener la página 'somos jujuy': {response.status_code}")
     return []
 
   soup = BeautifulSoup(response.text, 'html.parser')
