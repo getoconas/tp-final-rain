@@ -6,7 +6,7 @@ def get_news_pagina12(query, max_news):
 
   response = requests.get(url, headers=headers)
   if response.status_code != 200:
-    print(f"Error al obtener la página: {response.status_code}")
+    print(f"Error al obtener la página 'página 12': {response.status_code}")
     return []
   
   soup = BeautifulSoup(response.text, 'html.parser')
