@@ -9,6 +9,10 @@ from .conicet import get_news_conicet
 from .sinc import get_news_sinc
 from .muy_computer import get_news_muycomputer
 from .the_conversation import get_news_theconversation
+from .noticias_caracol import get_news_caracol
+from .wired import get_news_wired
+from .el_tribuno import get_news_eltribuno
+from .canal_26 import get_news_canal26
 
 ALL_NEWS = [
   get_news_somosjujuy,
@@ -21,5 +25,9 @@ ALL_NEWS = [
   get_news_conicet,
   get_news_sinc,
   get_news_muycomputer,
-  get_news_theconversation
+  get_news_theconversation,
+  get_news_caracol,
+  get_news_wired,
+  get_news_eltribuno,
+  get_news_canal26
 ]
