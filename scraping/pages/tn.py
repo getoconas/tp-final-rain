@@ -1,4 +1,4 @@
-from scraping.utils.common import requests, BeautifulSoup, quote
+from scraping.utils.common import requests, BeautifulSoup
 
 def get_news_tn(query, max_news):
   query_tn = query.replace(" ", "-")
@@ -15,9 +15,9 @@ def get_news_tn(query, max_news):
 
   news = []
   for article in articles:
-    a_tag = article.find('a')
+    a_tag = article.find('a', class_='card__image card__media')
     if a_tag and a_tag.get('href'):
-      title = a_tag.get_text(strip=True)
+      title = a_tag.get('title', '').strip()
       url = a_tag['href']
       # Si el enlace es relativo, agregar el dominio
       if url.startswith('/'):
