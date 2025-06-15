@@ -1,10 +1,10 @@
 from scraping.utils.common import requests, BeautifulSoup, quote
+from scraping.utils.headers import get_random_headers
 
 def get_news_pagina12(query, max_news):
   url = f"https://www.pagina12.com.ar/buscar?q={quote(query)}"
-  headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"}
-
-  response = requests.get(url, headers=headers)
+  
+  response = requests.get(url, headers=get_random_headers())
   if response.status_code != 200:
     print(f"Error al obtener la página 'página 12': {response.status_code}")
     return []
