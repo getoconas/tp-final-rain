@@ -8,6 +8,11 @@ from .tn import get_articles_tn
 from .conicet import get_article_conicet
 from .sinc import get_article_sinc
 from .muy_computer import get_article_muycomputer
+from .the_conversation import get_article_theconversation
+from .noticias_caracol import get_article_noticiascaracol
+from .wired import get_article_wired
+from .el_tribuno import get_article_eltribuno
+from .efe import get_article_efe
 
 ALL_ARTICLES = [
   get_article_somosjujuy,
@@ -19,5 +24,10 @@ ALL_ARTICLES = [
   get_articles_tn,
   get_article_conicet,
   get_article_sinc,
-  get_article_muycomputer
+  get_article_muycomputer,
+  get_article_theconversation,
+  get_article_noticiascaracol,
+  get_article_wired,
+  get_article_eltribuno,
+  get_article_efe
 ]
