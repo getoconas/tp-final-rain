@@ -14,20 +14,20 @@ from .wired import get_article_wired
 from .el_tribuno import get_article_eltribuno
 from .efe import get_article_efe
 
-ALL_ARTICLES = [
-  get_article_somosjujuy,
-  get_article_pagina12,
-  get_article_elpais,
-  get_article_euronews,
-  get_article_quepasajujuy,
-  get_article_jujuydice,
-  get_articles_tn,
-  get_article_conicet,
-  get_article_sinc,
-  get_article_muycomputer,
-  get_article_theconversation,
-  get_article_noticiascaracol,
-  get_article_wired,
-  get_article_eltribuno,
-  get_article_efe
-]
+ALL_ARTICLES = {
+  'somosjujuy': get_article_somosjujuy,
+  'pagina12': get_article_pagina12,
+  'elpais': get_article_elpais,
+  'euronews': get_article_euronews,
+  'quepasajujuy': get_article_quepasajujuy,
+  'jujuydice': get_article_jujuydice,
+  'tn': get_articles_tn,
+  'conicet': get_article_conicet,
+  'sinc': get_article_sinc,
+  'muycomputer': get_article_muycomputer,
+  'theconversation': get_article_theconversation,
+  'caracol': get_article_noticiascaracol,
+  'wired': get_article_wired,
+  'eltribuno': get_article_eltribuno,
+  'efe': get_article_efe
+}
