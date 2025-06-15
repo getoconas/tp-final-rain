@@ -1,13 +1,18 @@
-from scraping.pages import ALL_NEWS
+from scraping.runner import get_all_news, fetch_articles_content
 
 # Programa principal
 if __name__ == "__main__":
+  query = "eclipse"
+  max_news = 10
 
-  all_articles = []
-  for get_news in ALL_NEWS:
-    try:
-      news = get_news("inteligencia artificial", 10) 
-      all_articles.extend(news)
-      print(f"{get_news.__name__} finalizado. Noticias obtenidas: {len(news)}")
-    except Exception as e:
-      print(f"Error al procesar {get_news.__name__}: {e}")
+  print("📡 Obteniendo enlaces de noticias...")
+  news = get_all_news(query, max_news)
+
+  print(f"\n🔎 Total noticias encontradas: {len(news)}. Comenzando la extracción de contenido...\n")
+  all_articles = fetch_articles_content(news)
+
+  print(f"\n✅ Artículos completos extraídos: {len(all_articles)}")
+
+  if all_articles:
+    print(all_articles)
+  
