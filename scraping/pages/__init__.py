@@ -12,7 +12,7 @@ from .the_conversation import get_news_theconversation
 from .noticias_caracol import get_news_caracol
 from .wired import get_news_wired
 from .el_tribuno import get_news_eltribuno
-from .canal_26 import get_news_canal26
+from .efe import get_news_efe
 
 ALL_NEWS = [
   get_news_somosjujuy,
@@ -29,5 +29,5 @@ ALL_NEWS = [
   get_news_caracol,
   get_news_wired,
   get_news_eltribuno,
-  get_news_canal26
+  get_news_efe
 ]
