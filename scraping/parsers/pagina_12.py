@@ -28,7 +28,7 @@ def get_article_pagina12(url):
           text = elem.get_text()
           if text:
             content.append(text)
-        if elem.name == 'h2':
+        elif elem.name == 'h2':
           text = elem.get_text(strip=True)
           if text:
             content.append(text + ' ')
