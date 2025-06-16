@@ -4,6 +4,7 @@ import json
 import pandas as pd
 import webbrowser
 
+from .utils.text_cleaner import clean_and_lower, clean_text
 from scraping.runner import get_all_news, fetch_articles_content
 from data.semantic import train_model, search
 from data.cache_manager import load_cache, save_cache
@@ -15,7 +16,7 @@ class NewsApp:
     self.setup_ui()
     self.articles = []
     self.model = None
-  
+
   def setup_ui(self):
     # Frame principal
     main_frame = ttk.Frame(self.root, padding="10")
@@ -68,7 +69,6 @@ class NewsApp:
     export_frame = ttk.Frame(main_frame)
     export_frame.pack(fill="x")
     ttk.Button(export_frame, text="Guardar JSON", command=self.export_json).pack(side="left", padx=5)
-    ttk.Button(export_frame, text="Guardar CSV", command=self.export_csv).pack(side="left", padx=5)
   
   def on_item_double_click(self, event):
     item_id = self.results_tree.selection() # Obtiene el ID del elemento seleccionado
@@ -85,9 +85,11 @@ class NewsApp:
         webbrowser.open_new(url) # Abre la URL en el navegador predeterminado
       except Exception as e:
         messagebox.showerror("Error", f"No se pudo abrir el enlace:\n{url}\nError: {e}")
-
+  
   def scrape_news(self):
     query = self.scrape_query.get().strip()
+    query = clean_and_lower(query)
+  
     if not query:
       messagebox.showwarning("Error", "Ingresa un tema para scrapear")
       return
@@ -96,7 +98,15 @@ class NewsApp:
     cached_data = load_cache(query)
     if cached_data:
       if messagebox.askyesno("Caché encontrada", f"¿Usar datos guardados para '{query}'?"):
-        self.articles = cached_data
+        self.articles = []
+        for article in cached_data:
+          cleaned_article = {
+            'titulo': clean_text(article.get('titulo', '')),
+            'contenido': clean_text(article.get('contenido', '')),
+            'enlace': article.get('enlace', '')
+          }
+          self.articles.append(cleaned_article)
+
         self.model, self.doc_vecs = train_model(self.articles)
         messagebox.showinfo("Éxito", f"Se cargaron {len(self.articles)} noticias desde caché")
         return
@@ -107,7 +117,18 @@ class NewsApp:
       
       # Scrapear si no hay caché o el usuario quiere actualizar
       links = get_all_news(query, 10)
-      self.articles = fetch_articles_content(links)
+      print(f"➡️  Buscando noticias sobre: {query}")
+      raw_articles = fetch_articles_content(links)
+
+      self.articles = []
+      for article in raw_articles:
+        cleaned_article = {
+          'titulo': clean_text(article.get('titulo', '')), # Limpiar título
+          'contenido': clean_text(article.get('contenido', '')), # Limpiar contenido
+          'enlace': article.get('enlace', '') # Enlace no necesita limpieza
+        }
+        self.articles.append(cleaned_article)
+      
       save_cache(query, self.articles)
       self.model, self.doc_vecs = train_model(self.articles)
       
@@ -124,12 +145,14 @@ class NewsApp:
       return
     
     query = self.search_query.get().strip()
-    print(query)
+    query = clean_and_lower(query)
+    
     if not query:
       messagebox.showwarning("Error", "Ingresa una consulta")
       return
     
     try:
+      print(f"➡️  Termino buscado: {query}")
       scores = search(query, self.model, self.doc_vecs)
       self.show_results(scores)
     except Exception as e:
@@ -154,10 +177,7 @@ class NewsApp:
     
   def export_json(self):
     self._export_data('json')
-  
-  def export_csv(self):
-    self._export_data('csv')
-  
+    
   def _export_data(self, format):
     if not self.articles:
       messagebox.showwarning("Error", "No hay datos para exportar")
@@ -170,12 +190,8 @@ class NewsApp:
     
     if file_path:
       try:
-        if format == 'json':
-          with open(file_path, 'w', encoding='utf-8') as f:
-            json.dump(self.articles, f, ensure_ascii=False, indent=2)
-        else:
-          pd.DataFrame(self.articles).to_csv(file_path, index=False)
-        
+        with open(file_path, 'w', encoding='utf-8') as f:
+          json.dump(self.articles, f, ensure_ascii=False, indent=2)        
         messagebox.showinfo("Éxito", f"Datos exportados a {format.upper()}")
       except Exception as e:
         messagebox.showerror("Error", f"Error al exportar:\n{str(e)}")
