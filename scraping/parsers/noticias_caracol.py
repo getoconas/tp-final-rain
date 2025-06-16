@@ -12,6 +12,7 @@ def get_article_noticiascaracol(url):
   # Titulo de la noticia
   title = soup.find('h1')
   title = title.get_text(strip=True) if title else ''
+  title = clean_text(title)
 
   # Resumen
   summary = soup.find('h2', class_="ArticleLargeTitle-subHeadline")

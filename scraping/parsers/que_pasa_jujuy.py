@@ -12,6 +12,8 @@ def get_article_quepasajujuy(url):
   # Titulo de la noticia
   title = soup.find('h1', class_='title content-title')
   title = title.get_text(strip=True) if title else ''
+  title = clean_text(title)
+
   # Resumen
   summary = soup.find('h2', class_='description')
   summary = summary.get_text(strip=True) if summary else ''

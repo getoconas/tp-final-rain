@@ -12,6 +12,7 @@ def get_article_muycomputer(url):
   # Titulo de la noticia
   title = soup.find('h1', class_='mvp-post-title left entry-title')
   title = title.get_text(strip=True) if title else ''
+  title = clean_text(title)
 
   # Contenido
   article_content = soup.find('div', id='mvp-content-main')

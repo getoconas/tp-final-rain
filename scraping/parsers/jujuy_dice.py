@@ -12,6 +12,7 @@ def get_article_jujuydice(url):
   # Titulo de la noticia
   title = soup.find('h1')
   title = title.get_text(strip=True) if title else ''
+  title = clean_text(title)
 
   # Resumen
   summary_tag = soup.find('p', itemprop="description")

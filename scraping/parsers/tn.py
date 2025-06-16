@@ -12,6 +12,7 @@ def get_articles_tn(url):
   # Titulo de la noticia
   title = soup.find('h1', class_='article__title font__display')
   title = title.get_text(strip=True) if title else ''
+  title = clean_text(title)
 
   # Resumen
   summary = soup.find('h2', class_="article__dropline font__body")

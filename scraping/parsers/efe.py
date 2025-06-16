@@ -12,6 +12,7 @@ def get_article_efe(url):
   # Titulo de la noticia
   title = soup.find('h1', class_='entry-title')
   title = title.get_text() if title else ''
+  title = clean_text(title)
 
   # Contenido
   article_content = soup.find('div', class_='entry-content')
