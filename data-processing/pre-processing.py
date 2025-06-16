@@ -1,1 +1,0 @@
-# Preprocesar el texto para su posterior análisis
