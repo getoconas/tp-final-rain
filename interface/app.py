@@ -9,11 +9,13 @@ from .utils.text_cleaner import clean_and_lower, clean_text
 from scraping.runner import get_all_news, fetch_articles_content
 from data.semantic import train_model, search
 from data.cache_manager import load_cache, save_cache
+from .utils.pdf_exporter import export_pdf
 
 class NewsApp:
   def __init__(self, root):
     self.root = root
     self.root.title("Buscador Semántico de Noticias")
+    self.export_pdf = lambda: export_pdf(self) # Asigna la función como método
     setup_ui(self) # Llamada a setup_ui
     self.articles = []
     self.model = None
@@ -122,24 +124,3 @@ class NewsApp:
         article['titulo'],
         article['enlace']
       ))
-    
-  def export_json(self):
-    self._export_data('json')
-    
-  def _export_data(self, format):
-    if not self.articles:
-      messagebox.showwarning("Error", "No hay datos para exportar")
-      return
-        
-    file_path = filedialog.asksaveasfilename(
-      defaultextension=f".{format}",
-      filetypes=[(f"{format.upper()} files", f"*.{format}")]
-    )
-    
-    if file_path:
-      try:
-        with open(file_path, 'w', encoding='utf-8') as f:
-          json.dump(self.articles, f, ensure_ascii=False, indent=2)        
-        messagebox.showinfo("Éxito", f"Datos exportados a {format.upper()}")
-      except Exception as e:
-        messagebox.showerror("Error", f"Error al exportar:\n{str(e)}")
