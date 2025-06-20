@@ -51,4 +51,4 @@ def setup_ui(self):
   # Exportar
   export_frame = ttk.Frame(main_frame)
   export_frame.pack(fill="x")
-  ttk.Button(export_frame, text="Guardar JSON", command=self.export_json).pack(side="left", padx=5)
+  ttk.Button(export_frame, text="Exportar PDF", command=self.export_pdf).pack(side="left", padx=5)
